@@ -18,7 +18,7 @@ ENV PHPIZE_DEPS \
 		pcre-dev \
 		pkgconf \
 		re2c
-RUN apk add --no-cache --virtual .persistent-deps \
+RUN apk update && apk add --no-cache --virtual .persistent-deps \
 		ca-certificates \
 		curl \
 		tar \
@@ -60,7 +60,7 @@ ENV PHP_SHA256="4e0d28b1554c95cfaea6fa2b64aac85433f158ce72bb571bcd5574f98f4c6582
 
 RUN set -xe; \
 	\
-	apk add --no-cache --virtual .fetch-deps \
+	apk update && apk add --no-cache --virtual .fetch-deps \
 		gnupg \
 	; \
 	\
@@ -91,7 +91,7 @@ RUN set -xe; \
 COPY docker-php-source /usr/local/bin/
 
 RUN set -xe \
-	&& apk add --no-cache --virtual .build-deps \
+	&& apk update && apk add --no-cache --virtual .build-deps \
 		$PHPIZE_DEPS \
 		coreutils \
 		curl-dev \
@@ -144,7 +144,7 @@ RUN set -xe \
 			| sort -u \
 			| awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
 	)" \
-	&& apk add --no-cache --virtual .php-rundeps $runDeps \
+	&& apk update && apk add --no-cache --virtual .php-rundeps $runDeps \
 	\
 	&& apk del .build-deps \
 	\
