@@ -80,7 +80,7 @@ RUN set -xe; \
 		wget -O php.tar.bz2.asc "$PHP_ASC_URL"; \
 		export GNUPGHOME="$(mktemp -d)"; \
 		for key in $GPG_KEYS; do \
-			gpg --keyserver ha.pool.sks-keyservers.net --recv-keys $key; \
+			gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys $key; \
 		done; \
 		gpg --batch --verify php.tar.bz2.asc php.tar.bz2; \
 		rm -rf "$GNUPGHOME"; \
