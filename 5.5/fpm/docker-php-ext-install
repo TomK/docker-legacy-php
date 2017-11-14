@@ -76,7 +76,7 @@ cd /usr/src/php/ext
 for ext in $exts; do
 	(
 		cd "$ext"
-		[ -e Makefile ] || docker-php-ext-configure "$ext"
+		[ -e Makefile ] || docker-php-ext-configure "$ext" --build=x86_64-gnu-linux --enable-64bit
 		make -j"$j"
 		make -j"$j" install
 		find modules \
